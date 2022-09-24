@@ -1,23 +1,27 @@
-#include "proxy_wasm_intrinsics.h"
+#pragma once
 
-// PluginRootContext is the root context for all streams processed by the
-// thread. It has the same lifetime as the VM and acts as target for
-// interactions that outlives individual stream, e.g. timer, async calls.
-class PluginRootContext : public RootContext {
- public:
-  explicit PluginRootContext(uint32_t id, std::string_view root_id)
-      : RootContext(id, root_id) {}
+#include "envoy/network/filter.h"
 
-  bool onConfigure(size_t) override;
-};
+#include "source/common/common/logger.h"
 
-// Per-stream context.
-class PluginContext : public Context {
- public:
-  explicit PluginContext(uint32_t id, RootContext* root) : Context(id, root) {}
+namespace Envoy {
+namespace Filter {
 
- private:
-  inline PluginRootContext* rootContext() {
-    return dynamic_cast<PluginRootContext*>(this->root());
+/**
+ * Implementation of a basic echo filter.
+ */
+class Echo2 : public Network::ReadFilter, Logger::Loggable<Logger::Id::filter> {
+public:
+  // Network::ReadFilter
+  Network::FilterStatus onData(Buffer::Instance& data, bool end_stream) override;
+  Network::FilterStatus onNewConnection() override { return Network::FilterStatus::Continue; }
+  void initializeReadFilterCallbacks(Network::ReadFilterCallbacks& callbacks) override {
+    read_callbacks_ = &callbacks;
   }
+
+private:
+  Network::ReadFilterCallbacks* read_callbacks_{};
 };
+
+} // namespace Filter
+} // namespace Envoy

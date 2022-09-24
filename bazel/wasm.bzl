@@ -26,15 +26,16 @@ def wasm_libraries():
         urls = ["https://github.com/google/googletest/archive/release-1.10.0.tar.gz"],
     )
 
-    PROXY_WASM_CPP_HOST_SHA = "f38347360feaaf5b2a733f219c4d8c9660d626f0"
-    PROXY_WASM_CPP_HOST_SHA256 = "bf10de946eb5785813895c2bf16504afc0cd590b9655d9ee52fb1074d0825ea3"
+    # 2022-08-05, as in envoy v1.23.1
+    #PROXY_WASM_CPP_HOST_SHA = "4fcf895fa2433a1cdf20704926b8b7e4039a6a04"
+    #PROXY_WASM_CPP_HOST_SHA256 = "ff5be86afef80d834af54ba6d534f7ee6f1c97978d7e7ce312fb3a2cfbdbff65"
 
-    http_archive(
-        name = "proxy_wasm_cpp_host",
-        sha256 = PROXY_WASM_CPP_HOST_SHA256,
-        strip_prefix = "proxy-wasm-cpp-host-" + PROXY_WASM_CPP_HOST_SHA,
-        url = "https://github.com/proxy-wasm/proxy-wasm-cpp-host/archive/" + PROXY_WASM_CPP_HOST_SHA +".tar.gz",
-    )
+    #http_archive(
+    #    name = "proxy_wasm_cpp_host",
+    #    sha256 = PROXY_WASM_CPP_HOST_SHA256,
+    #    strip_prefix = "proxy-wasm-cpp-host-" + PROXY_WASM_CPP_HOST_SHA,
+    #    url = "https://github.com/proxy-wasm/proxy-wasm-cpp-host/archive/" + PROXY_WASM_CPP_HOST_SHA +".tar.gz",
+    #)
 
 def declare_wasm_image_targets(name, wasm_file):
     # Rename to the spec compatible name.

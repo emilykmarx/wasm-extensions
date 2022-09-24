@@ -1,6 +1,18 @@
-#include "extensions/wtf_agent/plugin.h"
+#include "plugin.h"
 
-static RegisterContextFactory register_WTFAgent(
-    CONTEXT_FACTORY(PluginContext), ROOT_FACTORY(PluginRootContext));
+#include "envoy/buffer/buffer.h"
+#include "envoy/network/connection.h"
 
-bool PluginRootContext::onConfigure(size_t) { return true; }
+#include "source/common/common/assert.h"
+
+namespace Envoy {
+namespace Filter {
+
+Network::FilterStatus Echo2::onData(Buffer::Instance& data, bool) {
+  ENVOY_CONN_LOG(trace, "echo: got {} bytes", read_callbacks_->connection(), data.length());
+  read_callbacks_->connection().write(data, false);
+  return Network::FilterStatus::StopIteration;
+}
+
+} // namespace Filter
+} // namespace Envoy

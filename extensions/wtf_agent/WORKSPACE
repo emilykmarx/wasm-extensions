@@ -1,22 +1,23 @@
 workspace(name = "wtf_agent_extension")
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+#load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-# Pulls proxy wasm cpp SDK with a specific SHA
-PROXY_WASM_CPP_SDK_SHA = "fd0be8405db25de0264bdb78fae3a82668c03782"
-PROXY_WASM_CPP_SDK_SHA256 = "c57de2425b5c61d7f630c5061e319b4557ae1f1c7526e5a51c33dc1299471b08"
+# Proxy SDK. 2022-03-15, as in envoy v1.23.1
+#PROXY_WASM_CPP_SDK_SHA = "e30535b7c0cd3126e6401bc3769063a74bbb37be"
 
-http_archive(
-    name = "proxy_wasm_cpp_sdk",
-    sha256 = PROXY_WASM_CPP_SDK_SHA256,
-    strip_prefix = "proxy-wasm-cpp-sdk-" + PROXY_WASM_CPP_SDK_SHA,
-    url = "https://github.com/proxy-wasm/proxy-wasm-cpp-sdk/archive/" + PROXY_WASM_CPP_SDK_SHA + ".tar.gz",
-)
+#PROXY_WASM_CPP_SDK_SHA256 = "94e474ebea782225821224734ed5992fa749301e12e06b6520b8b4d4e1c05ffc"
 
-load("@proxy_wasm_cpp_sdk//bazel/dep:deps.bzl", "wasm_dependencies")
+#http_archive(
+#    name = "proxy_wasm_cpp_sdk",
+#    sha256 = PROXY_WASM_CPP_SDK_SHA256,
+#    strip_prefix = "proxy-wasm-cpp-sdk-" + PROXY_WASM_CPP_SDK_SHA,
+#    url = "https://github.com/proxy-wasm/proxy-wasm-cpp-sdk/archive/" + PROXY_WASM_CPP_SDK_SHA + ".tar.gz",
+#)
 
-wasm_dependencies()
+#load("@proxy_wasm_cpp_sdk//bazel/dep:deps.bzl", "wasm_dependencies")
 
-load("@proxy_wasm_cpp_sdk//bazel/dep:deps_extra.bzl", "wasm_dependencies_extra")
+#wasm_dependencies()
 
-wasm_dependencies_extra()
+#load("@proxy_wasm_cpp_sdk//bazel/dep:deps_extra.bzl", "wasm_dependencies_extra")
+
+#wasm_dependencies_extra()
